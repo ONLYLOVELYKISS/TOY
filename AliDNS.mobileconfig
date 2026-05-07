@@ -1,66 +1,137 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+
+<!--
+========================================================
+ EMAS HTTPDNS - iOS DoH Configuration
+--------------------------------------------------------
+ 功能：
+ 1. 系统级 DNS over HTTPS
+ 2. 使用阿里云 EMAS HTTPDNS
+ 3. 全局 DNS 接管
+ 4. 作为 Loon / Surge DNS 兜底层
+
+ 适用：
+ - iOS / iPadOS 14+
+ - Loon / Surge / Shadowrocket
+ - 企业 HTTPDNS 场景
+========================================================
+-->
+
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+"http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+
 <plist version="1.0">
+
 <dict>
-	<!-- 配置总层级标识 -->
-	<key>PayloadType</key>
-	<string>Configuration</string>
-	<key>PayloadVersion</key>
-	<integer>1</integer>
-	<key>PayloadIdentifier</key>
-	<string>cn.alidns.doh.conditional</string>
-	<key>PayloadUUID</key>
-	<string>85A62F41-7359-48CB-A26D-91F57E32C810</string>
-	<key>PayloadDisplayName</key>
-	<string>阿里云DoH-全局加密</string>
-	<key>PayloadDescription</key>
-	<string>基于条件模板修改 全局所有域名走阿里云DoH加密解析</string>
-	<key>PayloadRemovalDisallowed</key>
-	<false/>
-	<key>PayloadScope</key>
-	<string>System</string>
 
-	<!-- DNS配置内容主体 -->
-	<key>PayloadContent</key>
-	<array>
-		<dict>
-			<key>PayloadType</key>
-			<string>com.apple.dnsSettings.managed</string>
-			<key>PayloadVersion</key>
-			<integer>1</integer>
-			<key>PayloadIdentifier</key>
-			<string>cn.alidns.doh.managed</string>
-			<key>PayloadUUID</key>
-			<string>72D19C58-2470-41E5-B638-60AC3581BD27</string>
-			<key>PayloadDisplayName</key>
-			<string>阿里云DoH解析规则</string>
-			<key>PayloadDescription</key>
-			<string>DoH加密DNS 全局生效 阿里公共官方节点</string>
-			<key>ProhibitDisablement</key>
-			<false/>
+    <!-- ================================================= -->
+    <!-- 描述文件基础信息 -->
+    <!-- ================================================= -->
 
-			<!-- DNS核心设置 -->
-			<key>DNSSettings</key>
-			<dict>
-				<!-- 协议类型：HTTPS=DoH加密DNS -->
-				<key>DNSProtocol</key>
-				<string>HTTPS</key>
-				<!-- DoH服务器地址 -->
-				<key>ServerURL</key>
-				<string>https://dns.alidns.com/dns-query</string>
-				<!-- DNS节点IP地址 IPv4+IPv6 -->
-				<key>ServerAddresses</key>
-				<array>
-					<string>223.5.5.5</string>
-					<string>223.6.6.6</string>
-					<string>2400:3200::1</string>
-					<string>2400:3200:baba::1</string>
-				</array>
-				<!-- 条件域名列表 留空即为全局生效 -->
-				<key>DomainMatches</key>
-				<array/>
-			</dict>
-		</dict>
-	</array>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+
+    <key>PayloadVersion</key>
+    <integer>1</integer>
+
+    <!-- 描述文件唯一标识 -->
+    <key>PayloadIdentifier</key>
+    <string>com.emas.apple-dns</string>
+
+    <!-- 描述文件 UUID -->
+    <key>PayloadUUID</key>
+    <string>130E6D6F-69A2-0117-9D77-99342CB9AE76</string>
+
+    <!-- 设置页面显示名称 -->
+    <key>PayloadDisplayName</key>
+    <string>AliDNS DoH</string>
+
+    <!-- 描述 -->
+    <key>PayloadDescription</key>
+    <string>System-wide DNS over HTTPS configuration</string>
+
+    <!-- 是否允许删除 -->
+    <key>PayloadRemovalDisallowed</key>
+    <false/>
+
+    <!-- ================================================= -->
+    <!-- Payload 内容 -->
+    <!-- ================================================= -->
+
+    <key>PayloadContent</key>
+
+    <array>
+
+        <dict>
+
+            <!-- Payload 类型 -->
+            <key>PayloadType</key>
+            <string>com.apple.dnsSettings.managed</string>
+
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+
+            <!-- Payload 唯一标识 -->
+            <key>PayloadIdentifier</key>
+            <string>com.apple.dnsSettings.managed.EMAS-HTTPDNS</string>
+
+            <!-- Payload UUID -->
+            <key>PayloadUUID</key>
+            <string>465AB183-5E34-0117-9BEB-B5327CF61F27</string>
+
+            <!-- 设置显示名称 -->
+            <key>PayloadDisplayName</key>
+            <string>AliDNS HTTPDNS</string>
+
+            <!-- 描述 -->
+            <key>PayloadDescription</key>
+            <string>Configures iOS to use EMAS HTTPDNS DoH</string>
+
+            <!-- 是否允许用户关闭 -->
+            <key>ProhibitDisablement</key>
+            <false/>
+
+            <!-- ================================================= -->
+            <!-- DNS 设置 -->
+            <!-- ================================================= -->
+
+            <key>DNSSettings</key>
+
+            <dict>
+
+                <!--
+                DNS 协议：
+                HTTPS = DoH
+                -->
+                <key>DNSProtocol</key>
+                <string>HTTPS</string>
+
+                <!--
+                EMAS HTTPDNS DoH Endpoint
+                必须支持 RFC8484
+                -->
+                <key>ServerURL</key>
+
+                <string>
+https://dns.alidns.com/dns-query
+                </string>
+
+                <!--
+                全局 DNS 接管
+                空字符串表示所有域名
+                -->
+                <key>SupplementalMatchDomains</key>
+
+                <array>
+                    <string></string>
+                </array>
+
+            </dict>
+
+        </dict>
+
+    </array>
+
 </dict>
+
 </plist>
