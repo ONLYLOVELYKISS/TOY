@@ -36,11 +36,11 @@
 
     <!-- 描述文件唯一标识 -->
     <key>PayloadIdentifier</key>
-    <string>com.emas.apple-dns</string>
+    <string>com.alidns.encrypted.dns</string>
 
     <!-- 描述文件 UUID -->
     <key>PayloadUUID</key>
-    <string>130E6D6F-69A2-0117-9D77-99342CB9AE76</string>
+    <string>550E8400-E29B-41D4-A716-446655440000</string>
 
     <!-- 设置页面显示名称 -->
     <key>PayloadDisplayName</key>
@@ -48,7 +48,7 @@
 
     <!-- 描述 -->
     <key>PayloadDescription</key>
-    <string>System-wide DNS over HTTPS configuration</string>
+    <string>系统级DNS控制-AliDNS</string>
 
     <!-- 是否允许删除 -->
     <key>PayloadRemovalDisallowed</key>
@@ -77,7 +77,7 @@
 
             <!-- Payload UUID -->
             <key>PayloadUUID</key>
-            <string>465AB183-5E34-0117-9BEB-B5327CF61F27</string>
+            <string>550E8400-E29B-41D4-A716-446655440000</string>
 
             <!-- 设置显示名称 -->
             <key>PayloadDisplayName</key>
