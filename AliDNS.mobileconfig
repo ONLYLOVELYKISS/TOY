@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- 配置总层级标识 -->
+	<key>PayloadType</key>
+	<string>Configuration</string>
+	<key>PayloadVersion</key>
+	<integer>1</integer>
+	<key>PayloadIdentifier</key>
+	<string>cn.alidns.doh.conditional</string>
+	<key>PayloadUUID</key>
+	<string>85A62F41-7359-48CB-A26D-91F57E32C810</string>
+	<key>PayloadDisplayName</key>
+	<string>阿里云DoH-全局加密</string>
+	<key>PayloadDescription</key>
+	<string>基于条件模板修改 全局所有域名走阿里云DoH加密解析</string>
+	<key>PayloadRemovalDisallowed</key>
+	<false/>
+	<key>PayloadScope</key>
+	<string>System</string>
+
+	<!-- DNS配置内容主体 -->
+	<key>PayloadContent</key>
+	<array>
+		<dict>
+			<key>PayloadType</key>
+			<string>com.apple.dnsSettings.managed</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+			<key>PayloadIdentifier</key>
+			<string>cn.alidns.doh.managed</string>
+			<key>PayloadUUID</key>
+			<string>72D19C58-2470-41E5-B638-60AC3581BD27</string>
+			<key>PayloadDisplayName</key>
+			<string>阿里云DoH解析规则</string>
+			<key>PayloadDescription</key>
+			<string>DoH加密DNS 全局生效 阿里公共官方节点</string>
+			<key>ProhibitDisablement</key>
+			<false/>
+
+			<!-- DNS核心设置 -->
+			<key>DNSSettings</key>
+			<dict>
+				<!-- 协议类型：HTTPS=DoH加密DNS -->
+				<key>DNSProtocol</key>
+				<string>HTTPS</key>
+				<!-- DoH服务器地址 -->
+				<key>ServerURL</key>
+				<string>https://dns.alidns.com/dns-query</string>
+				<!-- DNS节点IP地址 IPv4+IPv6 -->
+				<key>ServerAddresses</key>
+				<array>
+					<string>223.5.5.5</string>
+					<string>223.6.6.6</string>
+					<string>2400:3200::1</string>
+					<string>2400:3200:baba::1</string>
+				</array>
+				<!-- 条件域名列表 留空即为全局生效 -->
+				<key>DomainMatches</key>
+				<array/>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
